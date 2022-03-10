@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.generation.blogPessoal.model.Usuario;
-import org.generation.blogPessoal.repository.UsuarioRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -54,9 +53,9 @@ public class UsuarioRepositoryTest {
 			
 			List<Usuario> listaDeUsuarios = usuarioRepository.findAllByNomeContainingIgnoreCase("Silva");
 			assertEquals(3, listaDeUsuarios.size());
-			assertTrue(listaDeUsuarios.get(0).getNome().equals("Joao da Silva"));
-			assertTrue(listaDeUsuarios.get(0).getNome().equals("Manuela da Silva"));
-			assertTrue(listaDeUsuarios.get(0).getNome().equals("Adriana da Silva"));
+			assertTrue(listaDeUsuarios.get(0).getNome().equals("João da Silva"));
+			assertTrue(listaDeUsuarios.get(1).getNome().equals("Manuela da Silva"));
+			assertTrue(listaDeUsuarios.get(2).getNome().equals("Adriana da Silva"));
 
 		}
 		
