@@ -13,25 +13,38 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Entity
 @Table(name = "tb_usuario")
 public class Usuario {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	@NotNull
 	@Size(min = 2, max = 100)
 	private String nome;
-	
-	
+
 	@Schema (example = "email@email.com.br")
 	@NotNull (message = "o atibuto do usuário é obrigatório!")
 	@Size(min = 5, max = 100)
 	private String usuario;
-	
+
 	@NotNull
 	@Size(min = 5, max = 100)
 	private String senha;
 
+	private String foto;
+	
+	public Usuario(Long id, String nome, String foto, String usuario, String senha) {
+			this.id = id;
+			this.nome = nome; 
+			this.foto = foto; 
+			this.usuario = usuario; 
+			this.senha = senha;
+		}
+
+	public Usuario() {
+	}
+	
+	
 	public long getId() {
 		return id;
 	}
@@ -63,15 +76,12 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
-	 
-	
 
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
 }
-
-
-
-
-
-
-
