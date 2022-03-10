@@ -1,4 +1,4 @@
-package br.org.generation.blogPessoal.repository;
+package org.generation.blogPessoal.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
