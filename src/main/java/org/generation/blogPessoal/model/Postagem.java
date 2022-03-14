@@ -10,8 +10,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -25,17 +28,31 @@ public class Postagem {
 
 	private long id;
 
-	@NotNull
-	@Size(min = 5, max = 100)
+	
+	
+	
+	@NotBlank (message = "O atributo título é obrigatório!")
+	@Size(min = 5, max = 100, message = "O atributo título deve conter no mínimo 05 e no máximo 100 caracteres")
 	private String titulo;
 
-	@NotNull
-	@Size(min = 10, max = 500)
+	@NotBlank (message = "O atirbuto texto é obrigatório!")
+	@Size(min = 10, max = 1000, message = "O atributo texto deve conter no mínimo 10 e no máximo 1000 caracteres")
 	private String texto;
 
+	@UpdateTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date = new java.sql.Date(System.currentTimeMillis());
 
+	
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Tema tema;
+	
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
+	
+	
 	public long getId() {
 		return id;
 	}
@@ -68,10 +85,6 @@ public class Postagem {
 		this.date = date;
 	}
 
-	
-	@ManyToOne
-	@JsonIgnoreProperties("postagem")
-	private Tema tema;
 
 	public Tema getTema() {
 		return tema;
@@ -79,6 +92,19 @@ public class Postagem {
 
 	public void setTema(Tema tema) {
 		this.tema = tema;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public static boolean isEmpty() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

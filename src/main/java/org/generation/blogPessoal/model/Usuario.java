@@ -1,12 +1,18 @@
 package org.generation.blogPessoal.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -18,7 +24,7 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@NotNull
+	@NotNull (message = "O atributo Nome é obrigatório!")
 	@Size(min = 2, max = 100)
 	private String nome;
 
@@ -28,10 +34,17 @@ public class Usuario {
 	private String usuario;
 
 	@NotNull
-	@Size(min = 5, max = 100)
+	@Size(min = 5)
 	private String senha;
 
+	@Size (max = 5000, message = "O link da foto não pode ser maior do que 5000")
 	private String foto;
+	
+	
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("usuario")
+	private List<Postagem> postagem;
+
 	
 	public Usuario(Long id, String nome, String foto, String usuario, String senha) {
 			this.id = id;
@@ -84,4 +97,15 @@ public class Usuario {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
+
+	public List<Postagem> getPostagem() {
+		return postagem;
+	}
+
+	public void setPostagem(List<Postagem> postagem) {
+		this.postagem = postagem;
+	}
+	
+	
+	
 }
